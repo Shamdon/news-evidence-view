@@ -20,7 +20,7 @@ Research ordinary reader behavior and evidence/uncertainty presentation before v
 
 ## Acceptance and success
 
-Outcome A/B and overall Done criteria in CONTINUATION.md govern completion; neither is complete at this checkpoint. Engineering, reader-task, design and commercial success are reported separately. No human reader benefit, misinformation-resistance improvement or demand is validated. Provide a runnable human comparison protocol rather than substituting simulated agents for people.
+Outcome A/B and overall Done criteria in CONTINUATION.md govern completion; Outcome A retains a blocked live-headline gate; Outcome B has a reviewed engineering/design checkpoint with human testing pending. Engineering, reader-task, design and commercial success are reported separately. No human reader benefit, misinformation-resistance improvement or demand is validated. Provide a runnable human comparison protocol rather than substituting simulated agents for people.
 
 No self-merge, public deployment, paid service, submitted-content publication or clean-mirror change. Preserve ancestry, licenses and data notices; no commercial clearance claim.
 
@@ -33,3 +33,7 @@ Acceptance: 78 deterministic product tests passed on Node 24.19.0; 6 separate pr
 Outcome A has a verified supported URL/text journey; the live headline discovery/candidate gate remains incomplete because the public index times out. Outcome B has an exercised engineering/design checkpoint with a provisional question-led entrance/annotated-detail recommendation; human comparison is pending. Overall goal remains incomplete: do not claim universal input/evidence support or human/commercial success. Draft review branches remain unmerged; follow the handoff for exact publication SHAs.
 
 Next concrete action: exercise a reliable permitted headline discovery route end to end, without silently selecting reporting or treating index results as evidence; then run the defined human comparison protocol. Preserve existing acceptance evidence instead of restarting development. No continuous operation beyond harness execution is claimed.
+
+## Published review checkpoints
+
+Consumer implementation: `04cce273a399c4c06b8c8c85ddc8cef92a224b01`, branch `development/consumer-alignment`, [draft PR #4](https://github.com/Shamdon/news-evidence-view/pull/4) against main. Design implementation: `8515d9fab4a0176c7c4a9c764bdeb5d04bf7c62f`, branch `development/design-alternatives`, [stacked draft PR #5](https://github.com/Shamdon/news-evidence-view/pull/5) against consumer-alignment. Separate documentation commits may advance branch heads. Neither PR is merged. Main remains the bootstrap; the clean mirror remains the accepted baseline.
