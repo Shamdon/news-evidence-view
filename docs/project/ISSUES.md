@@ -23,3 +23,7 @@ Quantity scope (flows/subgroups/towns/species), comparison-word binding, ordinar
 - Geography is simplified orientation, not imagery, impact reconstruction or causation. Annual population and year-end counts can differ in reference/methodology. No commercial clearance is asserted.
 
 No known critical integrity defect remains in the independently exercised declared support. This is bounded review evidence, not universal security or accessibility certification. No self-merge, deployment, automatic update or mirror change is authorized/performed.
+
+## Inherited dependency inventory
+
+Production npm audit reports four low-severity package entries in inherited Cesium/DOMPurify dependencies. These are not imported by the isolated news entry; they remain unresolved in the inherited console. The new acquisition dependency is not flagged by this audit. No blanket security-clearance claim is made.

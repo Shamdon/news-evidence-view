@@ -15,6 +15,7 @@ for (const directory of [
   'reader',
   'interpretation',
   'resolution',
+  'design',
 ])
   await cp(
     new URL('news/' + directory, repo),

@@ -51,3 +51,7 @@ After publication-date repair: SCB extracted 908 characters, 4 factual candidate
 ## Review publication
 
 Consumer code is published in draft PR #4 against main; four-alternative design code is published separately in stacked draft PR #5. Publication records are in HANDOFF.md. The built product served the consumer, four-design gallery, technical reference and country assets successfully; its actual SCB acquisition/investigation HTTP endpoints returned the expected population record. Main and mirror remain unmodified.
+
+## Dependency audit boundary
+
+`npm audit --omit=dev` reports four low-severity vulnerable package entries in the inherited Cesium/DOMPurify dependency tree, with no moderate/high/critical entry in that production audit. The new linkedom package is not flagged. The isolated news entry does not import Cesium or DOMPurify. This is a dependency advisory snapshot, not a proof of security or remediation of inherited dependencies; GitHub default-branch alert counts are a separate inventory.
