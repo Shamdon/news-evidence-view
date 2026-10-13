@@ -30,7 +30,11 @@ export function worldPaths(data) {
             ',' +
             y.toFixed(2);
         }
-        paths.push({ name: feature.name, d: d + 'Z' });
+        paths.push({
+          name: feature.name,
+          countryCode: feature.iso2,
+          d: d + 'Z',
+        });
       }
     }
   return paths;

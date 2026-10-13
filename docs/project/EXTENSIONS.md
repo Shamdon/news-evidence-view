@@ -1,84 +1,35 @@
-# Extension boundaries and working demonstrations
+# General investigation boundaries and working extension demonstrations
 
-The `news/` entry is a local product, separate from inherited console modules. Trusted application source code selects extensions. Saved reporting, imported JSON and future model output cannot register providers, name executable modules or expand service access.
+The primary `news/reader` entry uses a provider-neutral version-2 account. `/technical` preserves the prior seismic desk; its contract does not define the new shared architecture. Trusted composition selects executable capabilities; reporting, imported JSON and future model outputs cannot register code, hosts or services.
 
-## Actual boundaries
+| Area | Responsibility |
+| --- | --- |
+| `domain/account.js` | Immutable source spans, claim interpretation/revisions, generic typed evidence, snapshots, validation and conditional relationships. No UI, storage, provider or renderer. |
+| `interpretation/claims.js`, `resolution/` | Conservative factual proposals and bounded place/time/quantity context; explicit uncertainty. Pure data operations, no acquisition. |
+| `application/consumer.js` | Common submission → interpretation → investigation → immutable account flow, cancellation, discovery selection and explicit local persistence. |
+| `providers/` | Safe article acquisition, headline discovery and registered claim-driven retrieval. Source-specific constraints stay here. |
+| `reader/` | Semantic consumer interaction and themes; no provider imports or subject selection. |
+| `geography/` | Recorded-coordinate/country orientation, equivalent text, resource lifecycle; no evidence acquisition. |
+| `server/` | Loopback API/static boundary, Host/Origin controls, quotas, cancellation; no saved accounts. |
 
-| Area                  | Owns                                                                                        | May depend on                                                                         |
-| --------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| `news/domain/case.js` | Claims/spans, revisions, provenance validation, conditional comparisons and snapshots       | Domain data only; no CSS, DOM, storage, renderer or acquisition                       |
-| `news/application/`   | Commands, immutable state, local storage, transport and trusted composition                 | Domain and explicitly selected geography                                              |
-| `news/presentation/`  | Reader panels, responsive layout, keyboard/focus and interface themes                       | Application interfaces and presentation; no provider acquisition/interpretation rules |
-| `news/providers/`     | Seismic adapter protocol, normalization, failures and trusted registration                  | Provider modules; no layout/renderer                                                  |
-| `news/geography/`     | Project recorded coordinates, render map or coordinate list, own boundary-resource lifetime | Geographic utilities and injected services; no evidence acquisition                   |
-| `news/server/`        | Local API/static boundary, request quotas, cancellation, startup/shutdown                   | Providers and Node built-ins; no stored cases                                         |
+`npm run check:news` checks syntax and literal dependency directions, including adversarial forbidden/computed import tests. It is trusted-source lint, not a sandbox for arbitrary plugins. Inherited package exports remain unchanged.
 
-`npm run check:news` checks syntax and declared literal dependencies, including multiline imports and re-exports; adversarial boundary tests prove forbidden directions/computed imports are rejected. This lint checks the import forms used by trusted product source. It is not a sandbox for arbitrary executable plugins. Inherited `npm run check:boundaries` separately checks inherited imports/package exports.
+## Evidence and acquisition extensions actually exercised
 
-## Interface themes
+`createInvestigator({capabilities})` accepts trusted `{id, supports(claim), retrieve(claim, context)}` capabilities. The built-in registry selects USGS catalog or annual World Bank population from claim context. No capability applies: `unresolved`, not false. The shared record supports kind, source family, provenance URL, separate temporal fields, period, places, typed measurements/methodology and limitations without earthquake fields.
 
-Working demonstration: run the service, open a reading account, switch **Night desk** / **Reading room**. Colors, typography, surfaces, component focus/state styling and motion tokens change. Source/provenance/provider choices do not. `themes.js` validates theme identity; `styles.css` supplies the same token contract for both. The paper theme also changes heading typography and motion, making it more than a tint variation. Reduced-motion preferences take precedence.
+Working third-category demonstration: `consumer-application.test.mjs` injects `fixture-policy`, retrieves a full documentary `source-assertion` with no earthquake/population measurements, appends it through the unchanged consumer application/domain, then validates save/reopen. Service tests replace the capability registry and exercise unrecognized subjects. This is a labelled deterministic fixture, not a live documentary source. Real public article → evidence → persisted JSON validation is separately exercised for population and earthquakes by `consumer-live.mjs`.
 
-Files defining this demonstration: `news/presentation/themes.js`, `news/presentation/styles.css`; UI selector wiring in `news/presentation/main.js`. No domain/provider files are modified to switch themes. `news/tests/application.test.mjs` checks theme selection leaves domain records unchanged; browser checks exercise both themes and keyboard-visible focus.
+Article/discovery/investigation are injected through `createConsumer({api,...})`; tests substitute acquisition/discovery without UI/domain edits and prove explicit candidate choice, provider failures, late-response cancellation and unchanged snapshots. Source-specific temporal/coverage rules belong in adapters. New media acquisition must preserve genuine timecodes and permissions; existing unsupported fallback cannot be relabelled support.
 
-Theme identity never selects capabilities. Layout is responsive presentation behavior, not scattered checks for a theme name. Globe rendering effects are not a product theme; this release has no globe-effect dependency.
+## Presentation and geographic replacements actually exercised
 
-## Compatible seismic providers
+`presentation/themes.js` supplies validated theme identity; `reader/style.css` implements shared semantic tokens for Reading room and Night desk. The same acquired account remains unchanged in both browser-tested appearances. Themes never select providers/capabilities.
 
-`createProviderRegistry()` accepts only trusted application-injected adapter objects with validated IDs and `retrieve(query, {signal})`. `acquire(url,{signal})` is optional for adapters offering input acquisition. HTTP clients may select an already registered provider ID; they cannot load/register code. The product controller selects `usgs` explicitly.
+Default geographic map, `/?geography=coordinates`, and `/?geography=off` use trusted finite composition. Off performs no geographic module construction/import. The coordinate layer needs no boundary fetch; the map owns abort/disposal and suppresses late resource updates. Existing application tests exercise real lifecycle/substitution and immutable subscriber state. Consumer browser review exercised saved population accounts with geography off and coordinates. Country outlines are context; only recorded evidence coordinates create event markers. Geography is optional for nonspatial claims.
 
-Working substitute/registration demonstration:
+The consumer interface combines a short intake/summary with exact claim/evidence detail and optional chronology. Four alternative fixture journeys remain on the design branch for comparative review; fixtures never enter live orchestration.
 
-```js
-import { createProviderRegistry } from '../../news/providers/registry.mjs';
-const adapter = {
-  async retrieve(query, { signal }) {
-    signal?.throwIfAborted();
-    return {
-      provider: 'fixture-seismic',
-      status: 'empty',
-      query,
-      retrievedAt: new Date().toISOString(),
-      evidence: [],
-      error: null,
-      truncated: false,
-    };
-  },
-};
-const registry = createProviderRegistry({ 'fixture-seismic': adapter });
-const result = await registry.get('fixture-seismic').retrieve({
-  startDate: '2023-02-06',
-  endDate: '2023-02-06',
-  latitude: null,
-  longitude: null,
-  radiusKm: 300,
-});
-```
+## Limits
 
-This is explicitly a deterministic conformance fixture, not a real evidence source. `news/tests/service.test.mjs` registers a second labelled fixture catalog through the live HTTP boundary and exercises unknown-provider rejection. `news/tests/domain.test.mjs` adds its normalized records to a case and round-trips them through snapshot validation without domain source edits. The separate `verify:news:live` gate uses real USGS acquisition/retrieval.
-
-Files defining the provider boundary: `news/providers/registry.mjs`, `news/providers/usgs.mjs`, `news/server/http.mjs`; demonstrations live in the service/domain tests. Source IDs/families are validated identifiers, not hardcoded to USGS in the domain. Every evidence record must match the selected retrieval provider. Explicit dependence is retained, and differing URL hosts do not prove independence.
-
-The current adapter contract is intentionally seismic: bounded UTC day/circle queries and earthquake magnitude/type/estimated-origin/depth fields. A camera, weather, imagery or news adapter must use a separately appropriate typed contract preserving its meaningful metadata (frame/acquisition date, quality, freshness, coverage, attribution, credentials, etc.). Do not force these into an earthquake record. Adding those domains would require explicit application capability and domain-schema work; no generic marketplace or universal provider compatibility is claimed.
-
-## Geographic extension and reduced product
-
-Working demonstrations:
-
-```text
-http://127.0.0.1:4178/
-http://127.0.0.1:4178/?geography=coordinates
-http://127.0.0.1:4178/?geography=off
-```
-
-Default: `mapLayer` declares `mapHost`, `boundaries` and `onSelectEvidence`. The alternate `coordinateLayer` needs only `mapHost`, makes no boundary request and provides a materially different text representation. Both implement `enable`, `disable`, `update(model)` and `dispose`.
-
-Off: composition constructs no geographic layer and performs no dynamic geographic module import. Document, chronology, correction, retrieval and local persistence still run. No fake sources/renderers are supplied to satisfy the inherited catalog. Only a finite trusted composition option is selected; case data is never used as an executable module URL. This is capability selection, not an access-control mechanism. Provider host/range/registration restrictions remain at the service boundary in every mode.
-
-Exact implementation files: `news/application/bootstrap.js`, `news/application/composition.js`, `news/geography/{map,coordinate-list,project}.js`. Independent state mutation protection belongs to `news/application/controller.js`; rendering subscribers receive deep-frozen snapshots and can change records only through application commands.
-
-`news/tests/application.test.mjs` exercises actual map disable/dispose, abort propagation and suppression of late boundary results with a minimal DOM test host, actual coordinate-list substitution without acquisition, empty composition without constructing omitted factories, reverse cleanup and immutable subscriber state. HTTP tests separately exercise client-disconnect provider abort; controller tests replace a case/dispose during retrieval and reject late state changes. Browser exercises make both geographic substitutions visible.
-
-## Remaining coupling and limits
-
-The application/presentation is still a small single-user workflow. `bootstrap.js` chooses from two geographic descriptors; adding one requires trusted code registration. The controller selects USGS explicitly. Other input/source domains need new types and UI commands, not a theme edit. Map rendering is an equirectangular orientation view; it is not imagery, a shaking footprint, reconstruction, geocoding or metric distance measurement. Boundary packs are simplified and supplied by local static hosting. No third-party executable plugin isolation is implemented or advertised.
+Current interpretation is conservative English/limited Swedish, not universal semantics. Default retrieval has two actual source families and narrow claim/coverage support; the generic documentary capability is a fixture. Headline live discovery times out externally. Local media feeds, arbitrary historical documents and audiovisual retrieval are not yet configured. No executable-plugin isolation, commercial clearance or human benefit is claimed.

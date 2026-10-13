@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en" data-theme="paper">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>News Evidence View — check the news behind your feed</title>
+    <link rel="stylesheet" href="/reader/style.css" />
+    <script type="module" src="/reader/app.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#result">Skip to reading account</a>
+    <header>
+      <a class="brand" href="/" aria-label="News Evidence View home"
+        ><svg aria-hidden="true" viewBox="0 0 32 32">
+          <rect x="5" y="4" width="17" height="23" rx="3" />
+          <path d="M10 10h7M10 15h7M10 20h4" />
+          <circle cx="23" cy="22" r="5" />
+          <path d="m27 26 3 3" /></svg
+        ><span
+          >News Evidence View<small
+            >Source criticism, made inspectable</small
+          ></span
+        ></a
+      ><label class="theme-control"
+        >Appearance<select id="theme">
+          <option value="paper">Reading room</option>
+          <option value="night">Night desk</option>
+        </select></label
+      >
+    </header>
+    <main>
+      <section class="entrance">
+        <p class="eyebrow">A READING ACCOUNT, NOT A TRUE / FAKE VERDICT</p>
+        <h1>Check the news<br /><em>behind your feed.</em></h1>
+        <p class="lead">
+          Submit a link, headline or report. Explore what it claims alongside
+          relevant sources, local observations where available, and context.
+        </p>
+        <form id="entrance-form">
+          <fieldset class="mode-choice">
+            <legend>What are you bringing?</legend>
+            <label
+              ><input type="radio" name="mode" value="url" checked /> A
+              link</label
+            ><label
+              ><input type="radio" name="mode" value="headline" /> A
+              headline</label
+            ><label
+              ><input type="radio" name="mode" value="text" /> Report
+              text</label
+            >
+          </fieldset>
+          <label id="input-label" for="input">Public article URL</label
+          ><textarea
+            id="input"
+            rows="3"
+            placeholder="https://…"
+            maxlength="100000"
+            required
+          ></textarea>
+          <div class="entry-actions">
+            <button class="primary" id="start" type="submit">
+              Explore this report <span aria-hidden="true">→</span></button
+            ><label class="file-label"
+              >Or load a .txt report<input
+                id="text-file"
+                type="file"
+                accept=".txt,text/plain"
+            /></label>
+          </div>
+          <p id="entry-help" class="help">
+            The local service reads public HTML; no sign-in or access
+            restrictions are bypassed. Headlines search a public news index and
+            require you to choose a candidate. Audio/video/PDF are not acquired;
+            paste a permitted transcript or excerpt instead.
+          </p>
+        </form>
+        <details class="privacy">
+          <summary>What gets sent, and what can currently be examined?</summary>
+          <p>
+            Submitted links are requested from their publisher by the local
+            service. Headline words go to a public news index. Report text is
+            interpreted locally; only derived evidence lookup parameters reach
+            record providers. No automatic publication or server-side account
+            storage. Explicit browser saves and exports contain text and
+            evidence and are not encrypted.
+          </p>
+          <p>
+            Factual candidates use conservative English and limited Swedish
+            interpretation. Configured record capabilities currently cover
+            seismic events and annual country population. Other statements
+            remain unassessed, with original wording preserved. Local media
+            feeds and audiovisual transcription are not yet configured. Source
+            family, time, coverage and missing evidence remain inspectable.
+          </p>
+        </details>
+      </section>
+      <div id="progress" role="status" aria-live="polite"></div>
+      <div id="error" role="alert" hidden></div>
+      <section id="discovery" hidden aria-labelledby="discovery-heading">
+        <p class="eyebrow">A HEADLINE IS A STARTING POINT</p>
+        <h2 id="discovery-heading">Which report did you mean?</h2>
+        <p id="discovery-note"></p>
+        <div id="candidates"></div>
+        <p class="help">
+          Titles can describe different stories. Nothing is acquired or treated
+          as a claim until you choose a report. If it is missing, bring its
+          original link or accessible text.
+        </p>
+      </section>
+      <section id="result" hidden tabindex="-1" aria-labelledby="account-title">
+        <div class="account-heading">
+          <div>
+            <p class="eyebrow">YOUR READING ACCOUNT</p>
+            <h2 id="account-title"></h2>
+            <p id="overview-copy"></p>
+          </div>
+          <div class="account-actions">
+            <button id="save">Save on this device</button
+            ><button id="export">Export account</button
+            ><button id="close">Close</button>
+          </div>
+        </div>
+        <div class="reader-columns">
+          <section class="claims-section">
+            <h3>What the source claims</h3>
+            <p class="help">
+              These are proposed factual statements, not verified facts. Select
+              one to inspect its wording and evidence.
+            </p>
+            <div id="claim-list"></div>
+            <details id="unassessed">
+              <summary id="unassessed-summary">Unassessed wording</summary>
+              <div id="unassessed-text"></div>
+            </details>
+          </section>
+          <section class="detail-section" aria-labelledby="detail-title">
+            <p class="eyebrow">LOOK CLOSER</p>
+            <h3 id="detail-title">Inspect a statement</h3>
+            <blockquote id="statement"></blockquote>
+            <div id="claim-context"></div>
+            <div id="claim-status"></div>
+            <div class="detail-actions">
+              <button id="retry">Look for sources again</button
+              ><button id="show-source">Read the original wording</button>
+            </div>
+            <details>
+              <summary>Correct or clarify the interpretation</summary>
+              <p class="help">
+                Describe the missing place, date, year or quantity in words.
+                This records your correction; it does not change the original or
+                manufacture evidence.
+              </p>
+              <form id="clarify-form">
+                <label for="clarification">Missing or corrected context</label
+                ><textarea
+                  id="clarification"
+                  rows="2"
+                  maxlength="1500"
+                  placeholder="For example: the statement refers to Sweden in 2023"
+                  required
+                ></textarea
+                ><label for="correction-reason">Why this correction?</label
+                ><input
+                  id="correction-reason"
+                  maxlength="1000"
+                  required
+                /><button type="submit">Record and explore correction</button>
+              </form>
+              <div id="revision-list"></div>
+            </details>
+            <label class="snapshot-label"
+              >Recorded evidence visit<select id="snapshot"></select
+            ></label>
+            <div id="evidence-list"></div>
+            <button id="more-evidence" hidden>Show remaining records</button>
+            <details id="geography-detail">
+              <summary>Place and chronology context</summary>
+              <p class="help">
+                Country outlines describe reported context. Record locations are
+                candidates; neither proximity nor a map establishes involvement,
+                causation or an event match.
+              </p>
+              <div id="map"></div>
+              <p class="attribution">
+                Made with Natural Earth · public-domain, simplified boundaries
+                for orientation. No imagery, live media or reconstructed event
+                footprints.
+              </p>
+              <ol id="chronology"></ol>
+            </details>
+          </section>
+        </div>
+        <details class="original" id="original-detail">
+          <summary>Original report, source and access details</summary>
+          <div id="source-info"></div>
+          <div id="source-text"></div>
+          <p class="help">
+            The extracted text may omit layout or embedded media. The publisher
+            link remains available; external content can change or disappear.
+            Saved values are as recorded. Imported JSON provenance is not
+            authenticated by this service.
+          </p>
+        </details>
+      </section>
+      <section class="saved-section">
+        <h2>Pick up where you left off</h2>
+        <div id="saved"></div>
+        <label
+          >Import an exported account<input
+            id="import"
+            type="file"
+            accept=".json,application/json"
+        /></label>
+        <p class="help">
+          Reopening keeps the original evidence state. It never silently
+          refreshes it. Exported files remain wherever you saved them.
+        </p>
+      </section>
+    </main>
+    <footer>
+      <span>Reader benefit and commercial demand remain unvalidated.</span>
+    </footer>
+  </body>
+</html>

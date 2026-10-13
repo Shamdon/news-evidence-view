@@ -8,7 +8,11 @@ Accept an article, clip or other report and connect its claims to places, dates,
 
 ## Current state
 
-Repository preparation only. The inherited application is God's Eye View v0.2.1 at `aa16b7c3b0166a89d8c7a6089e0aff53a22faaee`. It still opens the inherited globe. Article ingestion, transcription, claim extraction, evidence retrieval and a news-specific interface have not been implemented. Runtime package names and exports remain unchanged. The original README is preserved in Git history at the baseline commit.
+Consumer development is available on `development/consumer-alignment`; `main` retains the published bootstrap until review. The local `news/` entry accepts permitted public HTML URLs, report text and UTF-8 text files, proposes inspectable factual statements, resolves bounded context and chooses registered evidence capabilities. Headline discovery is implemented but its real public-index gate currently fails on timeout; candidate selection is tested with explicit fixtures. Audio/video/PDF acquisition is not implemented.
+
+Actual public population and earthquake articles exercise one provider-neutral workflow. Current live evidence sources are World Bank annual country totals and USGS catalog context with limited geographic support. Other claims remain explicitly unassessed. No claim of universal coverage, human benefit or commercial demand is made. The inherited console and package exports remain preserved.
+
+Run `npm ci` then `npm run dev:news` with supported Node.js. Open `http://127.0.0.1:4178/`. See [supported inputs and limits](news/README.md), [acceptance evidence](docs/project/EVALUATION.md) and [extension boundaries](docs/project/EXTENSIONS.md). Four fixture-based design alternatives are preserved on the separate design development branch; they are explicitly distinct from live retrieval.
 
 ## Repository separation
 
@@ -20,7 +24,7 @@ Repository preparation only. The inherited application is God's Eye View v0.2.1 
 
 Published on 2026-10-13 at https://github.com/Shamdon/news-evidence-view as a public, independent repository preserving the original Git ancestry. The default branch is `main`. The prepared commit `860e5bbd3d095fdac5e84b995d33dce5bee2bfeb` was published to `main`, and `upstream-baseline` was published at the exact accepted baseline. Publication status is recorded in a separate documentation commit. `main` contains product changes; `upstream-baseline` records the accepted original commit. Local pushes to original/upstream are disabled; this is not server-side branch protection.
 
-Updates enter a review branch, where they can be adapted before merging. Updating the mirror does not overwrite product main. GitHub Actions are disabled for this setup-only handoff. No automatic merges, scheduled updates, deployments or paid services were configured.
+Updates enter a review branch, where they can be adapted before merging. Updating the mirror does not overwrite product main. GitHub Actions remain disabled. No automatic merges, scheduled updates, deployments or paid services were configured.
 
 ## Records
 

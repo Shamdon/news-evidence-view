@@ -12,6 +12,9 @@ for (const directory of [
   'presentation',
   'application',
   'server',
+  'reader',
+  'interpretation',
+  'resolution',
 ])
   await cp(
     new URL('news/' + directory, repo),
@@ -27,5 +30,5 @@ await cp(
 for (const file of ['LICENSE', 'DATA_SOURCES.md'])
   await cp(new URL(file, repo), new URL(file, destination));
 console.log(
-  'Built isolated product in dist-news; start with node dist-news/news/server/start.mjs. No inherited runtime catalog or restricted assets included.',
+  'Built isolated product in dist-news; start with node dist-news/news/server/start.mjs. Uses the checkout’s installed acquisition dependency. No inherited runtime catalog or restricted assets included.',
 );

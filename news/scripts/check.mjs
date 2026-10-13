@@ -3,11 +3,14 @@ import { spawnSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
 import path from 'node:path';
 const rules = {
-  domain: ['domain'],
+  domain: ['domain', 'interpretation'],
+  interpretation: ['interpretation', 'resolution'],
+  resolution: ['resolution'],
+  reader: ['reader', 'application', 'presentation', 'geography'],
   providers: ['providers'],
   geography: ['geography'],
   presentation: ['presentation', 'application'],
-  application: ['application', 'domain', 'geography'],
+  application: ['application', 'domain', 'geography', 'interpretation'],
   server: ['server', 'providers'],
 };
 // Covers the literal static/dynamic import forms used by this entry, including multiline declarations.
@@ -31,10 +34,11 @@ export function inspectProductModule(
     const spec = match[1];
     dependencies.push(spec);
     if (spec.startsWith('node:')) {
-      if (area !== 'server')
+      if (!['server', 'providers'].includes(area))
         throw new Error(`${area} imports Node implementation ${spec}`);
       continue;
     }
+    if (area === 'providers' && spec === 'linkedom') continue;
     if (!spec.startsWith('.')) throw new Error(`Unexpected dependency ${spec}`);
     const target = path
       .relative(root.pathname, new URL(spec, file).pathname)

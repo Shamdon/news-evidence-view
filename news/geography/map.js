@@ -45,7 +45,7 @@ export const mapLayer = {
     function draw() {
       if (!enabled || disposed) return;
       svg.replaceChildren();
-      const records = mapRecords(latest ?? {}),
+      const records = latest?.records ?? mapRecords(latest ?? {}),
         highlighted = records.find((r) => r.id === latest?.highlightId);
       const points = (highlighted ? [highlighted] : records).map((r) =>
         project(r.longitude, r.latitude),
@@ -81,7 +81,12 @@ export const mapLayer = {
           }),
         );
       for (const p of countryPaths) {
-        const path = svgElement('path', { d: p.d, class: 'land' });
+        const path = svgElement('path', {
+          d: p.d,
+          class: latest?.countries?.includes(p.countryCode)
+            ? 'land country-context'
+            : 'land',
+        });
         const title = svgElement('title', {});
         title.textContent = p.name;
         path.append(title);
@@ -127,7 +132,8 @@ export const mapLayer = {
         (retrieval
           ? ` Search: ${retrieval.query.latitude === null ? 'global' : `${retrieval.query.latitude}°, ${retrieval.query.longitude}°; radius ${retrieval.query.radiusKm} km`}.`
           : '');
-      if (!records.length) {
+      if (latest?.queryLabel) label.textContent = latest.queryLabel;
+      if (!records.length && !latest?.countries?.length) {
         const hint = svgElement('text', {
           x: 360,
           y: 180,

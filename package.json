@@ -53,7 +53,8 @@
     "test:news": "node --test news/tests/*.test.mjs",
     "check:news": "node news/scripts/check.mjs",
     "build:news": "node news/scripts/build.mjs",
-    "verify:news:live": "node news/scripts/live.mjs"
+    "verify:news:live": "node news/scripts/live.mjs",
+    "verify:news:consumer-live": "node news/scripts/consumer-live.mjs"
   },
   "dependencies": {
     "@jtarrio/signals": "^0.10.0",
@@ -63,6 +64,7 @@
     "cesium": "^1.124.0",
     "egm96-universal": "^1.1.1",
     "hls.js": "^1.7.3",
+    "linkedom": "^0.18.13",
     "mgrs": "^2.1.0",
     "pbf": "^5.1.2",
     "satellite.js": "^6.0.2"

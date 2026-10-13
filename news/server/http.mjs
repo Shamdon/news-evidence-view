@@ -1,4 +1,7 @@
 import http from 'node:http';
+import {createHeadlineDiscovery} from '../providers/discovery.mjs';
+import {createArticleAcquirer} from '../providers/article.mjs';
+import {createInvestigator} from '../providers/investigation.mjs';
 import { readFile, realpath, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -53,6 +56,9 @@ export function createNewsServer({
   providers = {},
   root = ROOT,
   countriesPath = COUNTRY,
+  articleAcquirer = createArticleAcquirer(),
+  investigator = createInvestigator(),
+  discovery = createHeadlineDiscovery(),
 } = {}) {
   const registry = createProviderRegistry(providers);
   let activeRequests = 0;
@@ -112,7 +118,7 @@ export function createNewsServer({
         return send(res, 404, { error: 'Not found.' });
       if (
         req.method === 'POST' &&
-        (pathname === '/api/retrieve' || pathname === '/api/acquire')
+        ['/api/retrieve','/api/acquire','/api/source','/api/investigate','/api/discover'].includes(pathname)
       ) {
         const now = Date.now();
         requestTimes = requestTimes.filter((time) => now - time < 60000);
@@ -142,6 +148,12 @@ export function createNewsServer({
           .acquire(input.url, { signal: abort.signal });
         return send(res, 200, result);
       }
+      if(req.method==='POST'&&pathname==='/api/discover'){const input=await body(req);return send(res,200,await discovery.discover(input.headline,{signal:abort.signal}));}
+      if(req.method==='POST'&&pathname==='/api/source'){
+        const input=await body(req);let catalog=false;try{validateReportURL(input.url);catalog=true;}catch{}
+        const result=catalog?{...await registry.get('usgs').acquire(input.url,{signal:abort.signal}),sourceFamily:'usgs-comcat',acquisition:{mode:'catalog',notes:'Official USGS catalog rendered as text, not quoted article prose. Catalog evidence is from the same source family.'}}:await articleAcquirer.acquire(input.url,{signal:abort.signal});return send(res,200,result);
+      }
+      if(req.method==='POST'&&pathname==='/api/investigate'){const input=await body(req);return send(res,200,await investigator.investigate(input.claim,{signal:abort.signal}));}
       if (req.method !== 'GET' && req.method !== 'HEAD')
         return send(res, 405, { error: 'Method not allowed.' });
       let candidate, allowedRoot;
@@ -149,10 +161,10 @@ export function createNewsServer({
         candidate = countriesPath;
         allowedRoot = path.dirname(countriesPath);
       } else {
-        const asset =
-          pathname === '/' ? 'presentation/index.html' : pathname.slice(1);
+        let homepage='presentation/index.html';try{if((await stat(path.join(root,'reader/index.html'))).isFile())homepage='reader/index.html';}catch{}
+        const asset = pathname==='/'?homepage:pathname==='/technical'?'presentation/index.html':['/design','/design/'].includes(pathname)?'design/index.html':pathname.slice(1);
         if (
-          !/^(?:presentation|domain|geography|application)\/[a-zA-Z0-9_/-]+\.(?:html|mjs|js|css|json|svg)$/.test(
+          !/^(?:presentation|domain|geography|application|reader|interpretation|resolution|design)\/[a-zA-Z0-9_/-]+\.(?:html|mjs|js|css|json|svg)$/.test(
             asset,
           )
         )
@@ -184,6 +196,14 @@ export function createNewsServer({
         return send(res, 404, { error: 'Not found.' });
       // Only fixed application messages cross this boundary, never provider exceptions.
       const safe = [
+        'Enter a headline between 5 and 500 characters.',
+        'Enter a headline with at least two words.',
+        'Invalid interpreted claim.',
+        'This page could not be read safely. Paste the article text instead.',
+        'This page marks its content as restricted. Paste text you can access instead.',
+        'This page appears to require access. Paste text you can access instead.',
+        'No readable article text was found. Paste the text instead.',
+        'The publisher did not provide a public readable page. Paste article text instead.',
         'Use application/json.',
         'Request body too large.',
         'Invalid JSON object.',

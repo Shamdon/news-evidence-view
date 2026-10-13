@@ -22,7 +22,7 @@ export const coordinateLayer = {
         const heading = document.createElement('h3');
         heading.textContent = 'Geographic coordinates';
         const list = document.createElement('ul');
-        for (const r of mapRecords(model)) {
+        for (const r of model.records ?? mapRecords(model)) {
           const item = document.createElement('li');
           item.textContent = `${r.kind === 'reported' ? 'Reported place' : 'Catalog record'}: ${r.title} — ${r.latitude}, ${r.longitude}`;
           list.append(item);
