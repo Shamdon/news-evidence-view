@@ -16,11 +16,11 @@ Repository preparation only. The inherited application is God's Eye View v0.2.1 
 | --- | --- | --- |
 | original | https://github.com/bilawalsidhu/gods-eye-view | Original releases |
 | upstream | https://github.com/Shamdon/gods-eye-view | Clean mirror with no product changes |
-| origin | Intended https://github.com/Shamdon/news-evidence-view | Product development and reviewed integrations |
+| origin | https://github.com/Shamdon/news-evidence-view | Product development and reviewed integrations |
 
-The remote product repository has not yet been created. The local checkout and bootstrap are prepared. `main` contains product changes; `upstream-baseline` records the accepted original commit. Local pushes to original/upstream are disabled; this is not server-side branch protection.
+Published on 2026-10-13 at https://github.com/Shamdon/news-evidence-view as a public, independent repository preserving the original Git ancestry. The default branch is `main`. The prepared commit `860e5bbd3d095fdac5e84b995d33dce5bee2bfeb` was published to `main`, and `upstream-baseline` was published at the exact accepted baseline. Publication status is recorded in a separate documentation commit. `main` contains product changes; `upstream-baseline` records the accepted original commit. Local pushes to original/upstream are disabled; this is not server-side branch protection.
 
-Updates enter a review branch, where they can be adapted before merging. Updating the mirror does not overwrite product main.
+Updates enter a review branch, where they can be adapted before merging. Updating the mirror does not overwrite product main. GitHub Actions are disabled for this setup-only handoff. No automatic merges, scheduled updates, deployments or paid services were configured.
 
 ## Records
 

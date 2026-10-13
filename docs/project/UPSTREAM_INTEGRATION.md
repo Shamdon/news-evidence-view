@@ -42,3 +42,9 @@ Select a full SHA for integration; do not treat a moving branch name as a pinned
 Base: v0.2.1, `aa16b7c3b0166a89d8c7a6089e0aff53a22faaee`. The unchanged base previously passed production/panel builds and boundary checks on Node 24.19.0. Its ordinary and allocation test runs totalled 5,615 passes, zero failures and one skip. Browser/live-provider checks were not performed. These results concern the inherited base, not a future news product.
 
 Setup changes documentation and records only. Verify Git diff and bootstrap reconstruction; do not claim a product test result from documentation changes.
+
+## Initial remote publication
+
+Published on 2026-10-13 to https://github.com/Shamdon/news-evidence-view, a public independent repository with shared original ancestry. Default branch: `main`. Prepared commit: `860e5bbd3d095fdac5e84b995d33dce5bee2bfeb`. The remote `upstream-baseline` points to `aa16b7c3b0166a89d8c7a6089e0aff53a22faaee`. Publication records are updated in a separate documentation commit after the prepared commit.
+
+The bundle was verified with the baseline objects present; its reconstructed head and all six readable records matched the supplied bootstrap. Git object integrity and baseline ancestry checks passed. Remote branch heads were verified after initial publication. The clean mirror remained at the accepted baseline. Runtime code, package exports, MIT license and third-party notices were unchanged. No news-service runtime tests were performed. GitHub Actions are disabled for the setup-only handoff; no automatic merges, scheduled updates, deployments or paid services were configured.

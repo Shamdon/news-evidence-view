@@ -7,5 +7,10 @@
   "setupDate": "2026-10-13",
   "runtimeModifiedBySetup": false,
   "productStatus": "repository-preparation-only",
-  "remotePublicationStatus": "pending-repository-creation"
+  "remotePublicationStatus": "published",
+  "productRepositoryUrl": "https://github.com/Shamdon/news-evidence-view",
+  "repositoryVisibility": "public",
+  "defaultBranch": "main",
+  "preparedCommit": "860e5bbd3d095fdac5e84b995d33dce5bee2bfeb",
+  "publicationDate": "2026-10-13"
 }
