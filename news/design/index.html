@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" data-theme="paper">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>News Evidence View · Design studio</title>
+    <link rel="stylesheet" href="/design/style.css" />
+    <script type="module" src="/design/app.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to design workspace</a>
+    <header>
+      <a href="/design/index.html">NEWS EVIDENCE VIEW / DESIGN STUDIO</a
+      ><label
+        >Theme<select id="theme">
+          <option value="paper">Reading room</option>
+          <option value="night">Night desk</option>
+        </select></label
+      >
+    </header>
+    <div class="notice">
+      Design prototype: synthetic fixtures, no live retrieval. Examples and
+      numbers are invented for controlled comparison.
+    </div>
+    <main id="main"></main>
+    <dialog id="inspector">
+      <button id="close">Close inspection</button>
+      <div id="detail"></div>
+    </dialog>
+    <div id="feedback" role="status" aria-live="polite"></div>
+  </body>
+</html>

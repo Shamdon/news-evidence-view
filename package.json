@@ -54,7 +54,8 @@
     "check:news": "node news/scripts/check.mjs",
     "build:news": "node news/scripts/build.mjs",
     "verify:news:live": "node news/scripts/live.mjs",
-    "verify:news:consumer-live": "node news/scripts/consumer-live.mjs"
+    "verify:news:consumer-live": "node news/scripts/consumer-live.mjs",
+    "test:news:design": "node --test news/design/test.mjs"
   },
   "dependencies": {
     "@jtarrio/signals": "^0.10.0",
