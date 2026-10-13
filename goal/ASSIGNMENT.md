@@ -334,4 +334,3 @@ Return:
 End with a concise factual handoff in a text code block for the product-planning thread.
 
 Begin by inspecting the repository and environment. Establish the goal and acceptance evidence, then carry the work through to the usable result.
-
