@@ -22,4 +22,4 @@ A human study remains unavailable; reader benefit is a hypothesis. Commercial re
 
 ## Verified correction checkpoint
 
-Consumer code, 78 tests, real population/catalog paths and four prototype/browser comparisons are implemented. Independent consequential findings are repaired. Publication remains the final delivery step; inspect remote heads and HANDOFF.md for actual SHAs. The next unresolved implementation gate is live headline discovery → explicit candidate selection → acquisition. Human benefit and commercial outcomes remain unvalidated.
+Consumer code, 78 tests, real population/catalog paths and four prototype/browser comparisons are implemented. Independent consequential findings are repaired. Consumer and design checkpoints are published as draft PR #4 and stacked draft PR #5. Inspect remote heads and HANDOFF.md for recorded code SHAs; review and merge remain owner decisions. The next unresolved implementation gate is live headline discovery → explicit candidate selection → acquisition. Human benefit and commercial outcomes remain unvalidated.

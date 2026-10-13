@@ -47,3 +47,7 @@ Engineering: verified for the bounded inputs/sources above. Reader-task: hypothe
 ## Latest real-provider rerun
 
 After publication-date repair: SCB extracted 908 characters, 4 factual candidates and 7 unassessed passages; World Bank returned one uncapped record at `2026-10-13T13:09:41.102Z`. USGS extracted 8,839 characters, 14 candidates and 67 unassessed passages; after explicit targeted clarification it returned 100 capped records at `2026-10-13T13:09:43.570Z`. Both normalized snapshots passed JSON validation. Raw submitted source bodies are not committed.
+
+## Review publication
+
+Consumer code is published in draft PR #4 against main; four-alternative design code is published separately in stacked draft PR #5. Publication records are in HANDOFF.md. The built product served the consumer, four-design gallery, technical reference and country assets successfully; its actual SCB acquisition/investigation HTTP endpoints returned the expected population record. Main and mirror remain unmodified.
